@@ -1,0 +1,6 @@
+customtkinter
+opencv-python
+mss
+numpy
+pynput
+pyinstaller
