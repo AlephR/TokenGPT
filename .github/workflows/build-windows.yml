@@ -13,11 +13,15 @@ jobs:
         with:
           python-version: '3.11'
       - name: Install dependencies
-        run: pip install -r requirements.txt
-      - name: Package EXE
-        run: pyinstaller --noconfirm --onefile --windowed --name "TokenGPT" main.py
-      - name: Upload Windows EXE
+        run: pip install -r requirements.txt pyinstaller
+      - name: Package EXEs
+        run: |
+          pyinstaller --noconfirm --onefile --windowed --name "TokenGPT" main.py
+          pyinstaller --noconfirm --onefile --windowed --name "SoloFarmer" solo_farmer.py
+      - name: Upload Windows EXEs
         uses: actions/upload-artifact@v4
         with:
           name: TokenGPT-Windows
-          path: dist/TokenGPT.exe
+          path: |
+            dist/TokenGPT.exe
+            dist/SoloFarmer.exe
