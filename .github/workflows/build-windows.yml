@@ -4,6 +4,9 @@ on:
   push:
     branches: [ main ]
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: windows-latest
@@ -18,10 +21,11 @@ jobs:
         run: |
           pyinstaller --noconfirm --onefile --windowed --name "TokenGPT" main.py
           pyinstaller --noconfirm --onefile --windowed --name "SoloFarmer" solo_farmer.py
-      - name: Upload Windows EXEs
-        uses: actions/upload-artifact@v4
+      - name: Publish Release
+        uses: softprops/action-gh-release@v2
         with:
-          name: TokenGPT-Windows
-          path: |
+          tag_name: v1.0.0
+          name: TokenGPT & SoloFarmer Windows EXEs
+          files: |
             dist/TokenGPT.exe
             dist/SoloFarmer.exe
