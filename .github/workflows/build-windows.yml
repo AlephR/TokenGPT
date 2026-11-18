@@ -1,0 +1,23 @@
+name: Build TokenGPT Windows EXE
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Package EXE
+        run: pyinstaller --noconfirm --onefile --windowed --name "TokenGPT" main.py
+      - name: Upload Windows EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: TokenGPT-Windows
+          path: dist/TokenGPT.exe
